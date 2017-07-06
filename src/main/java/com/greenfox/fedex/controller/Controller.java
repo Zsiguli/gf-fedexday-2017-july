@@ -4,11 +4,13 @@ import com.greenfox.fedex.model.Data;
 import com.greenfox.fedex.model.Links;
 import com.greenfox.fedex.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class Controller {
 

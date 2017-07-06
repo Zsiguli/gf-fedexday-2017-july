@@ -23,7 +23,7 @@ public class UserService {
     this.resultsRepository = resultsRepository;
   }
 
-  public Page<Result> findAllTheUsers() {
+  public Page<Result> findBestTimes() {
     for (int i = 0; i < 100; ++i) {
       userRepository.save(new User(
               "John" + i,
@@ -37,5 +37,9 @@ public class UserService {
       resultsRepository.save(new Result(nickName, new Date(System.currentTimeMillis()), 54 + i, 65 - i, 54, 93, userRepository.findOne(nickName).getAvatar()));
     }
     return resultsRepository.findAllByOrderBySpinTimeDesc(new PageRequest(0, 10));
+  }
+
+  public Page<Result> findBestNumberOfSpins() {
+    return resultsRepository.findAllByOrderByNumberOfSpinsDesc(new PageRequest(0, 10));
   }
 }

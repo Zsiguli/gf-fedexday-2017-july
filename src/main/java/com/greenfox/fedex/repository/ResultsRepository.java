@@ -7,7 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface ResultsRepository extends PagingAndSortingRepository<Result, String> {
   Page<Result> findAllByOrderBySpinTimeDesc(Pageable pageable);
-//  Page<Result> findByNumberOfSpins(Pageable pageable);
-//  Page<Result> findByAVG_RPM(Pageable pageable);
-//  Page<Result> findByMAX_RPM(Pageable pageable);
+  Page<Result> findAllByOrderByNumberOfSpinsDesc(Pageable pageable);
+//  Page<Result> findAllByOrderByAVG_RPMDesc(Pageable pageable);
+//  Page<Result> findAllByOrderByMAX_RPMDesc(Pageable pageable);
 }

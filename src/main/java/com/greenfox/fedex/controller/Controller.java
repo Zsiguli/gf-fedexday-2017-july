@@ -22,12 +22,20 @@ public class Controller {
   }
   
   @GetMapping("/api/best_times")
-  public Data returnAllTheUsers(HttpServletRequest request) {
+  public Data bestTimes(HttpServletRequest request) {
     Links links = new Links(request.getRequestURL().toString());
     links.setNext("next");
     links.setPrev("prev");
     links.setLast("last");
-    System.out.println(links.getSelf());
-    return new Data(userService.findAllTheUsers(), links);
+    return new Data(userService.findBestTimes(), links);
+  }
+
+  @GetMapping("/api/best_no_spins")
+  public Data bestNumberOfSpins(HttpServletRequest request) {
+    Links links = new Links(request.getRequestURL().toString());
+    links.setNext("next");
+    links.setPrev("prev");
+    links.setLast("last");
+    return new Data(userService.findBestNumberOfSpins(), links);
   }
 }

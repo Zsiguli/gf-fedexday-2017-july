@@ -10,10 +10,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-  @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  public UserService(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
+
   public Page<User> findAllTheUsers() {
-    return userRepository.findAll(new PageRequest(0, 100));
+    for (int i = 0; i < 100; ++i) {
+      userRepository.save(new User("John" + i, "54" + i, "52" + i));
+    }
+    return userRepository.findAll(new PageRequest(0, 20));
   }
 }

@@ -1,6 +1,8 @@
 package com.greenfox.fedex.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +12,9 @@ import javax.persistence.Id;
 @Component
 @Getter
 @Setter
-@Entity
+@Entity(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
   @Id

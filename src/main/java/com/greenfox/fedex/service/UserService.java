@@ -34,12 +34,20 @@ public class UserService {
     }
     for (int i = 0; i < 100; ++i) {
       String nickName = "John" + i;
-      resultsRepository.save(new Result(nickName, new Date(System.currentTimeMillis()), 54 + i, 65 - i, 54, 93, userRepository.findOne(nickName).getAvatar()));
+      resultsRepository.save(new Result(nickName, new Date(System.currentTimeMillis()), 54 + i, 65 - i, 54 - i * 2, 93 + i * 3, userRepository.findOne(nickName).getAvatar()));
     }
     return resultsRepository.findAllByOrderBySpinTimeDesc(new PageRequest(0, 10));
   }
 
   public Page<Result> findBestNumberOfSpins() {
     return resultsRepository.findAllByOrderByNumberOfSpinsDesc(new PageRequest(0, 10));
+  }
+
+  public Page<Result> findBestAvgRpms() {
+    return resultsRepository.findAllByOrderByAvgRpmDesc(new PageRequest(0, 10));
+  }
+
+  public Page<Result> findBestMaxRpms() {
+    return resultsRepository.findAllByOrderByMaxRpmDesc(new PageRequest(0, 10));
   }
 }

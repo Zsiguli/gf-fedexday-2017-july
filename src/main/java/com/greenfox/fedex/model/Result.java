@@ -19,7 +19,7 @@ public class Result {
   private Date time;
   private Integer spinTime;
   private Integer numberOfSpins;
-  private Integer AVG_RPM;
-  private Integer MAX_RPM;
+  private Integer avgRpm;
+  private Integer maxRpm;
   private String avatar;
 }

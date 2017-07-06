@@ -8,6 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface ResultsRepository extends PagingAndSortingRepository<Result, String> {
   Page<Result> findAllByOrderBySpinTimeDesc(Pageable pageable);
   Page<Result> findAllByOrderByNumberOfSpinsDesc(Pageable pageable);
-//  Page<Result> findAllByOrderByAVG_RPMDesc(Pageable pageable);
-//  Page<Result> findAllByOrderByMAX_RPMDesc(Pageable pageable);
+  Page<Result> findAllByOrderByAvgRpmDesc(Pageable pageable);
+  Page<Result> findAllByOrderByMaxRpmDesc(Pageable pageable);
 }

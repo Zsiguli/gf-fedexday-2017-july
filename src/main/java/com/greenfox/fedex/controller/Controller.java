@@ -66,4 +66,9 @@ public class Controller {
   public Ok createNewUser(@RequestBody User user) {
     return userService.createUser(user);
   }
+
+  @PatchMapping("/user")
+  public Ok updateUser(@RequestBody User newProperties) {
+    return userService.updateUser(newProperties);
+  }
 }

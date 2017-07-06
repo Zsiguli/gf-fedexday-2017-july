@@ -60,4 +60,12 @@ public class UserService {
     userRepository.save(newUser);
     return new Ok();
   }
+
+  public Ok updateUser(User newProperties) {
+    User userToUpdate = userRepository.findOne(newProperties.getNickName());
+    userToUpdate.setAvatar(newProperties.getAvatar());
+    userToUpdate.setBackgroundColor(newProperties.getBackgroundColor());
+    userRepository.save(userToUpdate);
+    return new Ok();
+  }
 }

@@ -8,9 +8,11 @@ import com.greenfox.fedex.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -67,5 +69,9 @@ public class UserService {
     userToUpdate.setBackgroundColor(newProperties.getBackgroundColor());
     userRepository.save(userToUpdate);
     return new Ok();
+  }
+
+  public Page<Result> findBestByParameters(List<String> properties) {
+    return resultsRepository.findAll(new PageRequest(0, 10, new Sort(Sort.Direction.DESC, properties)));
   }
 }

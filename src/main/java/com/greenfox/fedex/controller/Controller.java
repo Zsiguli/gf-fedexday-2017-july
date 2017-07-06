@@ -75,10 +75,6 @@ public class Controller {
 
   @GetMapping("/api/bests")
   public Data bestsByParameter(@RequestParam List<String> properties, HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString());
-    links.setNext("next");
-    links.setPrev("prev");
-    links.setLast("last");
-    return new Data(userService.findBestByParameters(properties), links);
+    return userService.returnBests(properties, request);
   }
 }

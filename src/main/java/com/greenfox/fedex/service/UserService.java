@@ -1,8 +1,6 @@
 package com.greenfox.fedex.service;
 
-import com.greenfox.fedex.model.Ok;
-import com.greenfox.fedex.model.Result;
-import com.greenfox.fedex.model.User;
+import com.greenfox.fedex.model.*;
 import com.greenfox.fedex.repository.ResultsRepository;
 import com.greenfox.fedex.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -71,7 +70,21 @@ public class UserService {
     return new Ok();
   }
 
-  public Page<Result> findBestByParameters(List<String> properties) {
+  public Data returnBests(List<String> properties, HttpServletRequest request) {
+    Page<Result> bests = findBestByParameters(properties);
+    Links links = generateLinks(bests, request);
+    return new Data(bests, links);
+  }
+
+  private Page<Result> findBestByParameters(List<String> properties) {
     return resultsRepository.findAll(new PageRequest(0, 10, new Sort(Sort.Direction.DESC, properties)));
+  }
+
+  private Links generateLinks(Page<Result> bests, HttpServletRequest request) {
+    Links links = new Links(request.getRequestURL().toString());
+    links.setNext("next");
+    links.setPrev("prev");
+    links.setLast("last");
+    return links;
   }
 }

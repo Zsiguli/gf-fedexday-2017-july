@@ -1,5 +1,6 @@
 package com.greenfox.fedex.service;
 
+import com.greenfox.fedex.model.Ok;
 import com.greenfox.fedex.model.Result;
 import com.greenfox.fedex.model.User;
 import com.greenfox.fedex.repository.ResultsRepository;
@@ -53,5 +54,10 @@ public class UserService {
 
   public User findUser(String nickName) {
     return userRepository.findOne(nickName);
+  }
+
+  public Ok createUser(User newUser) {
+    userRepository.save(newUser);
+    return new Ok();
   }
 }

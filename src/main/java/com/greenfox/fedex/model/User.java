@@ -1,6 +1,6 @@
 package com.greenfox.fedex.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +17,10 @@ import javax.persistence.Id;
 public class User {
 
   @Id
-  private String nickname;
-  @JsonIgnore
+  private String nickName;
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String email;
-  @JsonIgnore
+  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   private String password;
   private String avatar;
   private String backgroundColor;

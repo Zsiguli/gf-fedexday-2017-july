@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,10 +14,12 @@ import javax.persistence.Entity;
 @Entity(name = "results")
 public class Result {
 
+  @Id
   private String nickName;
-  private Data time;
+  private Date time;
   private Integer spinTime;
   private Integer numberOfSpins;
   private Integer AVG_RPM;
   private Integer MAX_RPM;
+  private String avatar;
 }

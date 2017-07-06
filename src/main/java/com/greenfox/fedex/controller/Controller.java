@@ -21,7 +21,7 @@ public class Controller {
     this.userService = userService;
   }
   
-  @GetMapping("/api/users")
+  @GetMapping("/api/best_times")
   public Data returnAllTheUsers(HttpServletRequest request) {
     Links links = new Links(request.getRequestURL().toString());
     links.setNext("next");

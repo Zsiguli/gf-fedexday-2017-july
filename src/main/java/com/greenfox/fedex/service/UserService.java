@@ -1,23 +1,29 @@
 package com.greenfox.fedex.service;
 
+import com.greenfox.fedex.model.Result;
 import com.greenfox.fedex.model.User;
+import com.greenfox.fedex.repository.ResultsRepository;
 import com.greenfox.fedex.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class UserService {
 
   private UserRepository userRepository;
+  private ResultsRepository resultsRepository;
 
   @Autowired
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, ResultsRepository resultsRepository) {
     this.userRepository = userRepository;
+    this.resultsRepository = resultsRepository;
   }
 
-  public Page<User> findAllTheUsers() {
+  public Page<Result> findAllTheUsers() {
     for (int i = 0; i < 100; ++i) {
       userRepository.save(new User(
               "John" + i,
@@ -26,6 +32,10 @@ public class UserService {
               "https://static.comicvine.com/uploads/original/11111/111115170/3445548-4383058771-Avata.jpg",
               "#20D1AC"));
     }
-    return userRepository.findAll(new PageRequest(0, 20));
+    for (int i = 0; i < 100; ++i) {
+      String nickName = "John" + i;
+      resultsRepository.save(new Result(nickName, new Date(System.currentTimeMillis()), 54 + i, 65 - i, 54, 93, userRepository.findOne(nickName).getAvatar()));
+    }
+    return resultsRepository.findAllByOrderBySpinTimeDesc(new PageRequest(0, 10));
   }
 }

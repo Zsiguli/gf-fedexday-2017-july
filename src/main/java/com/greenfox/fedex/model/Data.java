@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 @AllArgsConstructor
 public class Data {
 
-  public Page<User> page;
+  public Page<Result> page;
   public Links links;
 }

@@ -50,4 +50,8 @@ public class UserService {
   public Page<Result> findBestMaxRpms() {
     return resultsRepository.findAllByOrderByMaxRpmDesc(new PageRequest(0, 10));
   }
+
+  public User findUser(String nickName) {
+    return userRepository.findOne(nickName);
+  }
 }

@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Component
 @Getter
 @Setter
 @Entity(name = "users")
@@ -18,7 +16,9 @@ import javax.persistence.Id;
 public class User {
 
   @Id
-  private String name;
-  private String bestSpeed;
-  private String bestTime;
+  private String nickname;
+  private String email;
+  private String password;
+  private String avatar;
+  private String backgroundColor;
 }

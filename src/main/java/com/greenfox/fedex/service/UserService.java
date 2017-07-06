@@ -19,7 +19,12 @@ public class UserService {
 
   public Page<User> findAllTheUsers() {
     for (int i = 0; i < 100; ++i) {
-      userRepository.save(new User("John" + i, "54" + i, "52" + i));
+      userRepository.save(new User(
+              "John" + i,
+              "54" + i,
+              "52" + i,
+              "https://static.comicvine.com/uploads/original/11111/111115170/3445548-4383058771-Avata.jpg",
+              "#20D1AC"));
     }
     return userRepository.findAll(new PageRequest(0, 20));
   }

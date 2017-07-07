@@ -41,18 +41,6 @@ public class UserService {
     return resultsRepository.findAllByOrderBySpinTimeDesc(new PageRequest(0, 10));
   }
 
-  public Page<Result> findBestNumberOfSpins() {
-    return resultsRepository.findAllByOrderByNumberOfSpinsDesc(new PageRequest(0, 10));
-  }
-
-  public Page<Result> findBestAvgRpms() {
-    return resultsRepository.findAllByOrderByAvgRpmDesc(new PageRequest(0, 10));
-  }
-
-  public Page<Result> findBestMaxRpms() {
-    return resultsRepository.findAllByOrderByMaxRpmDesc(new PageRequest(0, 10));
-  }
-
   public User findUser(String nickName) {
     return userRepository.findOne(nickName);
   }
@@ -81,14 +69,18 @@ public class UserService {
   }
 
   private Links generateLinks(Integer page, Page<Result> bests, HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString() + (request.getQueryString() != null ? "?" + request
-            .getQueryString() : ""));
+    StringBuffer requestURL = request
+            .getRequestURL()
+            .append("?");
+    String queryString = request.getQueryString();
+    Links links = new Links(requestURL
+            .toString()
+            + request.getQueryString());
     if (bests.hasNext()) {
-      links.setNext(request.getRequestURL() + "?page=" + (page + 1));
-      links.setLast(request.getRequestURL() + "?page=" + bests.getTotalPages());
+      links.setNext(requestURL.toString() + queryString.replaceAll(page.toString(), "" + (page + 1)));
     }
     if (bests.hasPrevious()) {
-      links.setPrev(request.getRequestURL() + (request.getQueryString().endsWith("page=1") ? "" : "?page=" + (page - 1)));
+      links.setPrev(requestURL.toString() + queryString.replaceAll(page.toString(), "" + (page - 1)));
     }
     return links;
   }

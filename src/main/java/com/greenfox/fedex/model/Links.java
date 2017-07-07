@@ -12,8 +12,6 @@ public class Links {
   private String next;
   @JsonInclude(JsonInclude.Include.NON_NULL)
   private String prev;
-  @JsonInclude(JsonInclude.Include.NON_NULL)
-  private String last;
 
   public Links(String self) {
     this.self = self;

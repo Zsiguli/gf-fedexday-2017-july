@@ -18,7 +18,7 @@ public class Controller {
   private UserService userService;
 
   @Autowired
-  public Controller (UserService userService) {
+  public Controller(UserService userService) {
     this.userService = userService;
   }
 
@@ -27,7 +27,6 @@ public class Controller {
     Links links = new Links(request.getRequestURL().toString());
     links.setNext("next");
     links.setPrev("prev");
-    links.setLast("last");
     return new Data(userService.findBestTimes(), links);
   }
 
@@ -47,7 +46,7 @@ public class Controller {
   }
 
   @GetMapping("/api/bests")
-  public Data bestsByParameter(@RequestParam(required = false, defaultValue = "0") Integer page, @RequestParam List<String> properties, HttpServletRequest request) {
+  public Data bestsByParameter(@RequestParam Integer page, @RequestParam List<String> properties, HttpServletRequest request) {
     return userService.returnBests(page, properties, request);
   }
 }

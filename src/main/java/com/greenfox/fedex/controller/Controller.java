@@ -22,40 +22,13 @@ public class Controller {
     this.userService = userService;
   }
 
-  @GetMapping("/api/best_times")
+  @GetMapping("/api/results")
   public Data bestTimes(HttpServletRequest request) {
     Links links = new Links(request.getRequestURL().toString());
     links.setNext("next");
     links.setPrev("prev");
     links.setLast("last");
     return new Data(userService.findBestTimes(), links);
-  }
-
-  @GetMapping("/api/best_no_spins")
-  public Data bestNumberOfSpins(HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString());
-    links.setNext("next");
-    links.setPrev("prev");
-    links.setLast("last");
-    return new Data(userService.findBestNumberOfSpins(), links);
-  }
-
-  @GetMapping("/api/best_avg_rpms")
-  public Data bestAvgRpms(HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString());
-    links.setNext("next");
-    links.setPrev("prev");
-    links.setLast("last");
-    return new Data(userService.findBestAvgRpms(), links);
-  }
-
-  @GetMapping("/api/best_max_rpms")
-  public Data bestMaxRpms(HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString());
-    links.setNext("next");
-    links.setPrev("prev");
-    links.setLast("last");
-    return new Data(userService.findBestMaxRpms(), links);
   }
 
   @GetMapping("/user/{nickName}")
@@ -74,7 +47,7 @@ public class Controller {
   }
 
   @GetMapping("/api/bests")
-  public Data bestsByParameter(@RequestParam List<String> properties, HttpServletRequest request) {
-    return userService.returnBests(properties, request);
+  public Data bestsByParameter(@RequestParam(required = false, defaultValue = "0") Integer page, @RequestParam List<String> properties, HttpServletRequest request) {
+    return userService.returnBests(page, properties, request);
   }
 }

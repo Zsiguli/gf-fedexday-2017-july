@@ -70,21 +70,26 @@ public class UserService {
     return new Ok();
   }
 
-  public Data returnBests(List<String> properties, HttpServletRequest request) {
-    Page<Result> bests = findBestByParameters(properties);
-    Links links = generateLinks(bests, request);
+  public Data returnBests(Integer page, List<String> properties, HttpServletRequest request) {
+    Page<Result> bests = findBestByParameters(page, properties);
+    Links links = generateLinks(page, bests, request);
     return new Data(bests, links);
   }
 
-  private Page<Result> findBestByParameters(List<String> properties) {
-    return resultsRepository.findAll(new PageRequest(0, 10, new Sort(Sort.Direction.DESC, properties)));
+  private Page<Result> findBestByParameters(Integer page, List<String> properties) {
+    return resultsRepository.findAll(new PageRequest(page, 10, new Sort(Sort.Direction.DESC, properties)));
   }
 
-  private Links generateLinks(Page<Result> bests, HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString());
-    links.setNext("next");
-    links.setPrev("prev");
-    links.setLast("last");
+  private Links generateLinks(Integer page, Page<Result> bests, HttpServletRequest request) {
+    Links links = new Links(request.getRequestURL().toString() + (request.getQueryString() != null ? "?" + request
+            .getQueryString() : ""));
+    if (bests.hasNext()) {
+      links.setNext(request.getRequestURL() + "?page=" + (page + 1));
+      links.setLast(request.getRequestURL() + "?page=" + bests.getTotalPages());
+    }
+    if (bests.hasPrevious()) {
+      links.setPrev(request.getRequestURL() + (request.getQueryString().endsWith("page=1") ? "" : "?page=" + (page - 1)));
+    }
     return links;
   }
 }

@@ -1,7 +1,6 @@
 package com.greenfox.fedex.controller;
 
 import com.greenfox.fedex.model.Data;
-import com.greenfox.fedex.model.Links;
 import com.greenfox.fedex.model.Ok;
 import com.greenfox.fedex.model.User;
 import com.greenfox.fedex.service.UserService;
@@ -21,15 +20,7 @@ public class Controller {
   public Controller(UserService userService) {
     this.userService = userService;
   }
-
-  @GetMapping("/api/results")
-  public Data bestTimes(HttpServletRequest request) {
-    Links links = new Links(request.getRequestURL().toString());
-    links.setNext("next");
-    links.setPrev("prev");
-    return new Data(userService.findBestTimes(), links);
-  }
-
+  
   @GetMapping("/user/{nickName}")
   public User singleUser(@PathVariable String nickName) {
     return userService.findUser(nickName);
@@ -47,6 +38,7 @@ public class Controller {
 
   @GetMapping("/api/bests")
   public Data bestsByParameter(@RequestParam Integer page, @RequestParam List<String> properties, HttpServletRequest request) {
+    userService.fillDatabase();
     return userService.returnBests(page, properties, request);
   }
 }

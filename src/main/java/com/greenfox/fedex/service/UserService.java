@@ -25,7 +25,7 @@ public class UserService {
     this.resultsRepository = resultsRepository;
   }
 
-  public Page<Result> findBestTimes() {
+  public void fillDatabase() {
     for (int i = 0; i < 100; ++i) {
       userRepository.save(new User(
               "John" + i,
@@ -38,7 +38,6 @@ public class UserService {
       String nickName = "John" + i;
       resultsRepository.save(new Result(nickName, new Date(System.currentTimeMillis()), 54 + i, 65 - i, 54 - i * 2, 93 + i * 3, userRepository.findOne(nickName).getAvatar()));
     }
-    return resultsRepository.findAllByOrderBySpinTimeDesc(new PageRequest(0, 10));
   }
 
   public User findUser(String nickName) {
